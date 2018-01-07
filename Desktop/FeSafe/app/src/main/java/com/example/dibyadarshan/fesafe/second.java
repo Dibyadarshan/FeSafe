@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -70,16 +71,12 @@ public class second extends AppCompatActivity{
                                                           .setTicker("Ticker")
                                                           .setContentTitle("News")
                                                           .setContentText(str[0])
-                                                          .setSmallIcon(R.drawable.ic_launcher_background)
-                                                          .addAction(R.drawable.ic_launcher_background," ",pIntent)
+                                                          .setSmallIcon(R.drawable.news)
+                                                          .setDefaults(Notification.DEFAULT_ALL)
                                                           .setContentIntent(pIntent).getNotification();
                                                   noti.flags= Notification.FLAG_AUTO_CANCEL;
                                                   NotificationManager nm=(NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                                                   nm.notify(0,noti);
-                                              }
-                                              else
-                                              {
-
                                               }
                                           } catch (IOException e) {
                                               e.printStackTrace();
@@ -87,7 +84,7 @@ public class second extends AppCompatActivity{
                                       }
 
                                   },
-                    0,
+                    60000,
                     600000);
         } catch (IOException e) {
             e.printStackTrace();
@@ -97,13 +94,13 @@ public class second extends AppCompatActivity{
         final MediaPlayer mp = MediaPlayer.create(this, R.raw.sound);
         one.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                //SmsManager smsManager =     SmsManager.getDefault();
-                //smsManager.sendTextMessage("+919886594337", null, "Help!", null, null);
                 if(mp.isPlaying()){
                     mp.pause();
                 }
                 else{
                     mp.start();
+                    SmsManager smsManager =     SmsManager.getDefault();
+                    smsManager.sendTextMessage("+919886594337", null, "Help!", null, null);
                 }
 
             }
